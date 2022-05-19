@@ -1,17 +1,17 @@
 public class playerStats
 {
     //Instance Variables
-    public String playerName;
+    private String playerName;
 
-    public int playerLevel;
-    public int health;
-    public int attackDamage;
-    public int defense;
-    public int speed;
-    public int currentBalance;
+    private int playerLevel;
+    private int health;
+    private int attackDamage;
+    private int defense;
+    private int speed;
+    private int currentBalance;
 
     //Constructor
-    public playerStats(String playerName,int level, int health, int attackDamage, int defense, int speed, int currentBalance)
+    public playerStats(String playerName,int playerLevel, int health, int attackDamage, int defense, int speed, int currentBalance)
     {
         this.playerLevel = playerLevel;
         this.playerName = playerName;
