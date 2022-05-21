@@ -3,22 +3,13 @@ public class playerClasses extends playerStats
     private boolean classTank;
     private boolean classSwordsman;
     private boolean classAssassin;
-    private int healthModifier;
-    private int attackModifer;
-    private int defenseModifer;
-    private int speedModifer;
-
     //constructors
-    public playerClasses(String playerName, int playerLevel, int health, int attackDamage, int defense, int speed, int currentBalance, boolean classTank, boolean classSwordsman, boolean classAssassin,int healthModifier,int attackModifer,int defenseModifer, int speedModifer)
+    public playerClasses(String playerName, int playerLevel, int health, int attackDamage, int defense, int speed, int currentBalance,int attackModifier ,int speedModifier, int defenseModifier, int healthModifier,boolean classTank, boolean classSwordsman, boolean classAssassin)
     {
-        super(playerName, playerLevel, health, attackDamage, defense, speed, currentBalance);
+        super(playerName, health, attackDamage, defense, speed, currentBalance, attackModifier, speedModifier, defenseModifier, healthModifier);
         this.classTank = classTank;
         this.classSwordsman = classSwordsman;
         this.classAssassin = classAssassin;
-        this.healthModifier = healthModifier;
-        this.attackModifer = attackModifer;
-        this.defenseModifer = defenseModifer;
-        this.speedModifer = speedModifer;
     }
     //Getters
     public boolean getClassTank()
@@ -36,25 +27,6 @@ public class playerClasses extends playerStats
         return classAssassin;
     }
 
-    public int getHealthModifier()
-    {
-        return healthModifier;
-    }
-
-    public int getAttackModifer()
-    {
-        return attackModifer;
-    }
-
-    public int getDefenseModifer()
-    {
-        return defenseModifer;
-    }
-
-    public int getSpeedModifer()
-    {
-        return speedModifer;
-    }
     //Setters
     public void setClassTank(boolean newClassTank)
     {
@@ -71,6 +43,31 @@ public class playerClasses extends playerStats
 
     //Brain Method
     //Change Player Stats off of what Class the user picked
+    public void isClassSwordsman()
+    {
+        if (classSwordsman == true)
+        {
+            classTank = false;
+            classAssassin = false;
+
+        }
+    }
+    public void isClassTank()
+    {
+        if (classTank == true)
+        {
+            classAssassin = false;
+            classSwordsman = false;
+        }
+    }
+    public void isClassAssassin()
+    {
+        if (classAssassin == true)
+        {
+            classSwordsman = false;
+            classTank = false;
+        }
+    }
 
     //toString
     public String toString()

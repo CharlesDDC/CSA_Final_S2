@@ -2,24 +2,29 @@ public class playerStats
 {
     //Instance Variables
     private String playerName;
-
-    private int playerLevel;
     private int health;
     private int attackDamage;
     private int defense;
     private int speed;
     private int currentBalance;
+    private int attackModifier;
+    private int speedModifier;
+    private int defenseModifier;
+    private int healthModifer;
 
     //Constructor
-    public playerStats(String playerName,int playerLevel, int health, int attackDamage, int defense, int speed, int currentBalance)
+    public playerStats(String playerName, int health, int attackDamage, int defense, int speed, int currentBalance,int attackModifier, int speedModifier, int defenseModifier, int healthModifer)
     {
-        this.playerLevel = playerLevel;
         this.playerName = playerName;
         this.health = health;
         this.attackDamage = attackDamage;
         this.defense = defense;
         this.speed = speed;
         this.currentBalance = currentBalance;
+        this.attackModifier = attackModifier;
+        this.speedModifier = speedModifier;
+        this.defenseModifier = defenseModifier;
+        this.healthModifer = healthModifer;
     }
 
     //Getters
@@ -27,47 +32,47 @@ public class playerStats
     {
         return playerName;
     }
-
-    public int getLevel()
-    {
-        return playerLevel;
-    }
-
     public int getHealth()
     {
         return health;
     }
-
     public int getAttackDamage()
     {
         return attackDamage;
     }
-
     public int getDefense()
     {
         return defense;
     }
-
     public int getSpeed()
     {
         return speed;
     }
-
     public int getCurrentBalance()
     {
         return currentBalance;
+    }
+    public int getAttackModifier()
+    {
+        return attackModifier;
+    }
+    public int getSpeedModifier()
+    {
+        return speedModifier;
+    }
+    public int getDefenseModifier()
+    {
+        return defenseModifier;
+    }
+    public int getHealthModifer()
+    {
+        return healthModifer;
     }
     //Setters
     public void setPlayerName(String newPlayerName)
     {
         playerName = newPlayerName;
     }
-
-    public void setLevel(int newPlayerLevel)
-    {
-        playerLevel = newPlayerLevel;
-    }
-
     public void setHealth(int newHealth)
     {
         health = newHealth;
@@ -93,13 +98,28 @@ public class playerStats
         currentBalance = newCurrentBalance;
     }
 
+    public void setAttackModifier(int newAttackModifier)
+    {
+        attackModifier =newAttackModifier;
+    }
+    public void setSpeedModifier(int newSpeedModifier)
+    {
+        speedModifier = newSpeedModifier;
+    }
+    public void setDefenseModifier(int newDefenseModifier)
+    {
+        defenseModifier = newDefenseModifier;
+    }
+    public void setHealthModifer(int newHealthModifier)
+    {
+        healthModifer = newHealthModifier;
+    }
     //toString
     public String toString()
     {
         String output;
         output = "Player Stats: "
                 + "\nPlayer Name: " + playerName
-                + "\nPlayer Level: " + playerLevel
                 + "\nPlayer Health: " + health
                 + "\nPlayer Attack Damage: " + attackDamage
                 + "\nPlayer Defense: " + defense
