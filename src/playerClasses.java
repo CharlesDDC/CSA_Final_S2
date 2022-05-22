@@ -4,7 +4,7 @@ public class playerClasses extends playerStats
     private boolean classSwordsman;
     private boolean classAssassin;
     //constructors
-    public playerClasses(String playerName, int playerLevel, int health, int attackDamage, int defense, int speed, int currentBalance,int attackModifier ,int speedModifier, int defenseModifier, int healthModifier,boolean classTank, boolean classSwordsman, boolean classAssassin)
+    public playerClasses(String playerName, int health, int attackDamage, int defense, int speed, int currentBalance,int attackModifier ,int speedModifier, int defenseModifier, int healthModifier,boolean classTank, boolean classSwordsman, boolean classAssassin)
     {
         super(playerName, health, attackDamage, defense, speed, currentBalance, attackModifier, speedModifier, defenseModifier, healthModifier);
         this.classTank = classTank;
@@ -42,33 +42,15 @@ public class playerClasses extends playerStats
     }
 
     //Brain Method
+    public void fighting()
+    {
+        System.out.println("THWACK");
+    }
+    public void running()
+    {
+        System.out.println("You start to run. And got away!");
+    }
     //Change Player Stats off of what Class the user picked
-    public void isClassSwordsman()
-    {
-        if (classSwordsman == true)
-        {
-            classTank = false;
-            classAssassin = false;
-
-        }
-    }
-    public void isClassTank()
-    {
-        if (classTank == true)
-        {
-            classAssassin = false;
-            classSwordsman = false;
-        }
-    }
-    public void isClassAssassin()
-    {
-        if (classAssassin == true)
-        {
-            classSwordsman = false;
-            classTank = false;
-        }
-    }
-
     //toString
     public String toString()
     {

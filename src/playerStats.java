@@ -114,6 +114,15 @@ public class playerStats
     {
         healthModifer = newHealthModifier;
     }
+    //Brain Methods
+    public void fighting()
+    {
+        System.out.println("SMACK");
+    }
+    public void run()
+    {
+        System.out.println("You run as fast as you can. But... you trip and fall");
+    }
     //toString
     public String toString()
     {
