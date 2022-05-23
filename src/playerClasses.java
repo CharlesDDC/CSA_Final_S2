@@ -48,7 +48,7 @@ public class playerClasses extends playerStats
     }
     public void running()
     {
-        System.out.println("You start to run. However you felt like this monster will attack you again. You charge back in!!");
+        System.out.println("You start to run. And you escape successfully!!");
     }
     //Change Player Stats off of what Class the user picked
     //toString

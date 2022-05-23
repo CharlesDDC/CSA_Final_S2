@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.lang.Math;
 public class Main implements colorInterface
 {
     public static void main (String[]args)
@@ -116,93 +117,106 @@ public class Main implements colorInterface
         +"\nYou start to panic and find a shed nearby."
         +"\nYou quickly sprint towards the shed and break the door down"
         +"\nOnce in the shed you see three items, a " + TEXT_RED + "sword" + TEXT_RESET + ", a" + TEXT_BLUE + " dagger" + TEXT_RESET + ", and a " + TEXT_GREEN + "shield" + TEXT_RESET + "."
-        +"\nWhich item will you choooe?");
+        +"\nWhich item will you choose?");
         System.out.print(">");
         itemChoice = scan.nextLine();
         //new enemy "gremlin" stats
         //boolean to make sure you die when your hp reaches 0
         boolean playerHealth = false;
         enemiesStats gremlin = new enemiesStats("gremlin",10,4,5,8);
-        //This happens when you pick sword
+        //making roles so player can choose it
+        playerClasses assassinRole = new playerClasses(playerName, newPlayer.getHealth(), newPlayer.getAttackDamage(), newPlayer.getDefense(), newPlayer.getSpeed(), newPlayer.getCurrentBalance(), 2,2,0,0,false,false,false);
+        playerClasses swordsmanRole = new playerClasses(playerName, newPlayer.getHealth(), newPlayer.getAttackDamage(), newPlayer.getDefense(), newPlayer.getSpeed(), newPlayer.getCurrentBalance(), 1,1,1,1,false,false,false);
+        playerClasses tankRole = new playerClasses(playerName, newPlayer.getHealth(), newPlayer.getAttackDamage(), newPlayer.getDefense(), newPlayer.getSpeed(), newPlayer.getCurrentBalance(), 0,0,2,2,false,false,false);
         if (itemChoice.equalsIgnoreCase("sword"))
         {
-            playerClasses swordsManRole = new playerClasses(playerName, newPlayer.getHealth(), newPlayer.getAttackDamage(), newPlayer.getDefense(), newPlayer.getSpeed(), newPlayer.getCurrentBalance(), 2,2,2,2,false,true,false);
-            swordsManRole.setAttackDamage(swordsManRole.getAttackDamage() + swordsManRole.getAttackModifier());
-            swordsManRole.setDefense(swordsManRole.getDefenseModifier() + swordsManRole.getDefense());
-            swordsManRole.setSpeed(swordsManRole.getSpeed() + swordsManRole.getSpeedModifier());
-            swordsManRole.setHealth(swordsManRole.getHealth() + swordsManRole.getHealthModifer());
-            System.out.println("You pick up the sword and start to see the shadowy figure."
-                    +"\nYou see a ugly green gremlin run at you.");
+           swordsmanRole.setClassSwordsman(true);
+           swordsmanRole.setAttackDamage(swordsmanRole.getAttackDamage() + swordsmanRole.getAttackModifier());
+           swordsmanRole.setDefense(swordsmanRole.getDefense() + swordsmanRole.getDefenseModifier());
+           swordsmanRole.setSpeed(swordsmanRole.getSpeed() + swordsmanRole.getSpeedModifier());
+           swordsmanRole.setHealth(swordsmanRole.getHealth() + swordsmanRole.getHealthModifer());
+           System.out.println("You pick up the sword and defend yourself with it");
+        }
+        else if (itemChoice.equalsIgnoreCase("dagger"))
+        {
+            assassinRole.setClassAssassin(true);
+            assassinRole.setSpeed(assassinRole.getSpeed() + assassinRole.getSpeedModifier());
+            assassinRole.setAttackDamage(assassinRole.getAttackDamage() + assassinRole.getAttackModifier());
+            System.out.println("You pick up the dagger and start to defend yourself with it.");
+        }
+        else if(itemChoice.equalsIgnoreCase("shield"))
+        {
+            tankRole.setClassTank(true);
+            tankRole.setHealth(tankRole.getHealth() + tankRole.getHealthModifer());
+            tankRole.setDefense(tankRole.getDefense() + tankRole.getHealthModifer());
+            System.out.println("You pick up the shield and start to defend yourself with it");
+        }
+        //boolean to see if you run away
+        boolean runAway = false;
+        while (gremlin.getEnemyHealth() >= 0 && runAway == false && tankRole.getHealth() > 0 && swordsmanRole.getHealth() > 0 && assassinRole.getHealth() > 0)
+        {
             System.out.println("What will you do?");
             System.out.println("Will you " + TEXT_RED + "fight " + TEXT_RESET + "or " + TEXT_GREEN + "run" + TEXT_RESET + "?");
             System.out.print(">");
             fightGremlin = scan.nextLine();
-            while (gremlin.getEnemyHealth() >= 0)
+            //Checks if you fight this gremlin
+            if (fightGremlin.equalsIgnoreCase("fight"))
             {
-                int turnLimit = 5;
-                for (int turns = 0; turns < turnLimit; turns++ )
+                //Variables to use when taking damage
+                int enemyDamageDealt;
+                int playerDamageDealt;
+                int playerRemainingHP;
+                int enemyRemaingHP;
+                if(tankRole.getClassTank() == true)
                 {
-                    if (fightGremlin.equalsIgnoreCase("fight"))
+                    if (tankRole.getSpeed() > gremlin.getEnemySpeed())
                     {
-                        if (gremlin.getEnemySpeed() < swordsManRole.getSpeed())
-                        {
-                            System.out.println("You move faster than the gremlin and strike first!!");
-                            int damageDealt = swordsManRole.getAttackDamage() - gremlin.getEnemyDefense();
-                            int remainingHP = gremlin.getEnemyHealth() - damageDealt;
-                            gremlin.setEnemyHealth(remainingHP);
-                            System.out.println("You have hit the gremlin for " + damageDealt + "damage!!");
-                            System.out.println("The gremlin has " + gremlin.getEnemyHealth() + " HP left");
-                            System.out.println("However you ");
-
-                        }
-                    }
-                    else if (fightGremlin.equalsIgnoreCase("run"))
-                    {
-
+                        System.out.println("You moved faster than this gremlin and hit him!");
+                        //Math for when attacking
+                        playerDamageDealt = Math.abs(tankRole.getAttackDamage() - gremlin.getEnemyDefense());
+                        enemyRemaingHP = gremlin.getEnemyHealth() - playerDamageDealt;
+                        gremlin.setEnemyHealth(enemyRemaingHP);
+                        System.out.println("You hit the gremlin for " + TEXT_RED + playerDamageDealt + TEXT_RESET + " damage!");
+                        System.out.println("The gremlin has " + TEXT_RED + gremlin.getEnemyHealth() + TEXT_RESET + "HP left!");
+                        System.out.println("However the gremlin has hit you back!");
+                        //Math for when enemy attacks you
+                        enemyDamageDealt = Math.abs(gremlin.getEnemyAttack() - tankRole.getDefense());
+                        playerRemainingHP = tankRole.getHealth() - enemyDamageDealt;
+                        tankRole.setHealth(playerRemainingHP);
+                        System.out.println("You got hit by the gremlin for " + TEXT_RED + enemyDamageDealt + TEXT_RESET + " damage!");
+                        System.out.println("You have " + TEXT_RED + tankRole.getHealth() + TEXT_RESET + "HP left");
                     }
                 }
+                else if (swordsmanRole.getClassSwordsman() == true)
+                {
+
+                }
+                else if (assassinRole.getClassAssassin() == true)
+                {
+                    assassinRole.setHealth(0);
+                }
             }
-        }
-        //Checks if dagger was picked
-        else if(itemChoice.equalsIgnoreCase("dagger"))
-        {
-            playerClasses assassinRole = new playerClasses(playerName, newPlayer.getHealth(), newPlayer.getAttackDamage(), newPlayer.getDefense(), newPlayer.getSpeed(), newPlayer.getCurrentBalance(), 2,2,2,2,false,false,true);
-            assassinRole.setClassAssassin(true);
-            assassinRole.setAttackDamage(assassinRole.getAttackDamage() * assassinRole.getAttackModifier());
-            assassinRole.setHealth(assassinRole.getHealth() - assassinRole.getHealthModifer());
-            assassinRole.setSpeed(assassinRole.getSpeed() * assassinRole.getSpeedModifier());
-            assassinRole.setDefense(assassinRole.getDefense() - assassinRole.getDefenseModifier());
-            System.out.println("You pick up the dagger and start to see the shadowy figure."
-            +"\nYou see a ugly green gremlin run at you.");
-            System.out.println("What will you do?");
-            System.out.println("Will you " + TEXT_RED + "fight " + TEXT_RESET + "or " + TEXT_GREEN + "run" + TEXT_RESET + "?");
-            System.out.print(">");
-            fightGremlin = scan.nextLine();
-            while (gremlin.getEnemyHealth() >= 0)
+            else if(fightGremlin.equalsIgnoreCase("run"))
             {
-
-            }
-
-        }
-        //Checks if shield was picked
-        else if (itemChoice.equalsIgnoreCase("shield"))
+                tankRole.running();
+                System.out.println("You ran to a nearby farm and stopped there");
+                runAway = true;
+            }//end of else if
+        }//end of while loop
+        if (runAway == true)
         {
-            playerClasses tankRole = new playerClasses(playerName, newPlayer.getHealth(), newPlayer.getAttackDamage(), newPlayer.getDefense(), newPlayer.getSpeed(), newPlayer.getCurrentBalance(), 2,2,2,2,true,false,false);
-            tankRole.setHealth(tankRole.getHealth() * tankRole.getHealthModifer());
-            tankRole.setDefense(tankRole.getDefense() * tankRole.getDefense());
-            tankRole.setSpeed(tankRole.getSpeed() / tankRole.getDefenseModifier());
-            System.out.println("You pick up the shield and start to see the shadowy figure."
-                    +"\nYou see a ugly green gremlin run at you.");
-            System.out.println("What will you do?");
-            System.out.println("Will you " + TEXT_RED + "fight " + TEXT_RESET + "or " + TEXT_GREEN + "run" + TEXT_RESET + "?");
-            System.out.print(">");
-            fightGremlin = scan.nextLine();
-            while (gremlin.getEnemyHealth() >= 0)
-            {
-
-            }
+            //Ran away like a bitch ending
+            System.out.println("After running away from this ugly gremlin you started to get really tired");
+            System.out.println("You started to feel the fatigue of running away and blacked out");
+            System.out.println("To be continued?");
         }
-
-
+        else if (tankRole.getHealth() <= 0 || assassinRole.getHealth()  <= 0 || swordsmanRole.getHealth() <= 0)
+        {
+            //Got killed by gremlin ending
+            System.out.println("You start to lose a lot of blood from this gremlin");
+            System.out.println("You have died from multiple stab wounds the gremlin gave you");
+            System.out.println("However you feel a sharp pain from the stab wounds and wake up");
+            System.out.println("To be continued??");
+        }
     }
 }
