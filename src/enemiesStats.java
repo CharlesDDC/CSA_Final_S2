@@ -36,12 +36,37 @@ public class enemiesStats
     {
         return enemySpeed;
     }
-    //Setters
-
+    //Setter
     public void setEnemyName(String newEnemyName)
     {
           enemyName = newEnemyName;
     }
-
+    public void setEnemyHealth(int newEnemyHealth)
+    {
+        enemyHealth = newEnemyHealth;
+    }
+    public void setEnemyAttack(int newEnemyAttack)
+    {
+        enemyAttack = newEnemyAttack;
+    }
+    public void setEnemyDefense(int newEnemyDefense)
+    {
+        enemyDefense = newEnemyDefense;
+    }
+    public void setEnemySpeed(int newEnemySpeed)
+    {
+        enemySpeed = newEnemySpeed;
+    }
+    //toString
+    public String toString()
+    {
+        String output;
+        output = "Enemy Stats:"
+                + "\nEnemy Health: " + enemyHealth
+                + "\nEnemy Attack: " + enemyAttack
+                + "\nEnemy Defense: " + enemyDefense
+                + "\nEnemy Speed: " + enemySpeed;
+        return output;
+    }
 
 }
